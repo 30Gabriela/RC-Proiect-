@@ -19,6 +19,7 @@ class Device:
         self.services=[] #o lista in care se vor inregistra serviciile oferite
         self.multicast_address='244.0.0.251'    #???
         self.mDNS_port=5353
+        self.thread=None
 
         # Creaza un socket IPv4, TCP
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
