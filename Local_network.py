@@ -12,7 +12,7 @@ class Local:
         Ip_address_4=randrange(1,253,1)
         check_Ip=self.verify_IP(Ip_address_4)
         if check_Ip==1:
-            new_device.set_router_address(str(Ip_address_1)+'.'+str(Ip_address_2)+'.'+str(Ip_address_3)+'.'+str(Ip_address_4g))
+            new_device.set_router_address(str(Ip_address_1)+'.'+str(Ip_address_2)+'.'+str(Ip_address_3)+'.'+str(Ip_address_4))
         self.devices.append(new_device)
 
     def verify_IP(self,IP_address_4):
