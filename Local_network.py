@@ -1,10 +1,10 @@
 from random import randrange
-from Device import Device
+
 class Local:
-    def __init__(self):
+    def __init__(self,server):
         self.devices=[] #o lista cu dispozitivele din retea
         self.IP_used=[]
-
+        self.server=server
     #zero-config
 
     def register_device(self,new_device):

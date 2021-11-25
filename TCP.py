@@ -8,6 +8,7 @@ class Server:
         self.mDNS_address = '224.0.0.251'
         self.clients=[]
         self.running=False
+        self.local_network=None
         try:
             # Creaza un socket IPv4, TCP
             self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -43,6 +44,7 @@ class Server:
                 newDevice=Device("nume device")
                 newDevice.thread = threading.Thread(target=self.handleDevice) #functia va receptiona mesajele de la Device
                 self.clients.append(newDevice)
+                self.local_network.register_device(newDevice)
 
             #apasarea tastelor Ctrl‐C se iese din blucla while 1
             except KeyboardInterrupt:
@@ -68,3 +70,6 @@ class Server:
             conn.sendall(bytes(str(addr) + ' a trimis ' + str(data), encoding="ascii"))
         print("Clientul ", addr, " a inchis conexiunea")
         conn.close()
+
+    def set_local_network(self,network):
+        self.local_network=network
