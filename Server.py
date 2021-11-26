@@ -2,7 +2,7 @@ import socket
 import threading
 from Device import Device
 
-class Server:
+class UDP:
     def __init__(self):
         self.mDNS_port = 5253
         self.mDNS_address = '224.0.0.251'
@@ -38,7 +38,10 @@ class Server:
             try:
                 # Asteapta cereri de conectare, apel blocant
                 # La conectarea unui client, functia returneaza un nou socket si o tupla (ip_address,port)
-                connection, addr = self.server.accept()
+                connection_socket, addr = self.server.accept()
+                #connection socket va fi folosit pentru comunicarea cu clientul, fiecare client avand socket-ul sau
+                #nu ar trebui sa salvez aceste socket uri intr-o lista pentru a le putea folosi si ulterior?
+
 
                 #adaugam un nou dispozitiv
                 newDevice=Device("nume device")
