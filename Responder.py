@@ -1,10 +1,11 @@
 
 from random import randint
-
+from SRV_record import SRV_record
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_SRV(object):
-    def setupUi(self, Form):
+    def setupUi(self, Form,main):
+        self.mainWindows=main
         Form.setObjectName("Form")
         Form.resize(1180, 159)
         Form.setMinimumSize(QtCore.QSize(1180, 159))
@@ -56,7 +57,7 @@ class Ui_SRV(object):
         self.AddButton_2.setGeometry(QtCore.QRect(980, 42, 111, 41))
         self.AddButton_2.setStyleSheet("background-color: rgb(230, 230, 230);")
         self.AddButton_2.setObjectName("AddButton_2")
-
+        self.AddButton_2.clicked.connect(self.getSRVDates)
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -70,6 +71,19 @@ class Ui_SRV(object):
         self.Weight_label.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:12pt;\">Weight</span></p><p><br/></p></body></html>"))
         self.Host_label.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:12pt;\">Host</span></p></body></html>"))
         self.AddButton_2.setText(_translate("Form", "Add"))
+
+
+    def getSRVDates(self):
+        address = self.WriteAddress.text()
+        ttl = self.WriteTTL.text()
+        priority = self.WritePriority.text()
+        weight = self.WriteWeight.text();
+        port = self.WritePort.text()
+        host = self.WriteHost.text()
+        a = SRV_record("nume", "tcp", address, ttl, priority, weight, port, host)
+        a.print()
+        self.mainWindows.closeSrv()
+
 
 class Ui_Responder(object):
     def setupUi(self, MainWindow):
@@ -183,9 +197,11 @@ class Ui_Responder(object):
     def showSRV(self):
         self.Form = QtWidgets.QWidget()
         self.ui = Ui_SRV()
-        self.ui.setupUi(self.Form)
+        self.ui.setupUi(self.Form,self)
         self.Form.show()
 
+    def closeSrv(self):
+        self.Form.close();
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
