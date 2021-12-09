@@ -1,11 +1,15 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.height=462
+        self.weight=635
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(462, 633)
+        MainWindow.resize(self.height,self.weight);
+        MainWindow.setMinimumSize(QtCore.QSize(462, 635))
+        MainWindow.setMaximumSize(QtCore.QSize(462, 635))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.MainFrame = QtWidgets.QFrame(self.centralwidget)
@@ -63,11 +67,4 @@ class Ui_MainWindow(object):
 
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+

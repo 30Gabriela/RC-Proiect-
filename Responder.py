@@ -1,9 +1,9 @@
-
-from random import randint
 from SRV_record import SRV_record
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from Resolver import Ui_MainWindow
+import sys
 class Ui_SRV(object):
+    listaSRV=[]
     def setupUi(self, Form,main):
         self.mainWindows=main
         Form.setObjectName("Form")
@@ -80,15 +80,24 @@ class Ui_SRV(object):
         weight = self.WriteWeight.text();
         port = self.WritePort.text()
         host = self.WriteHost.text()
-        a = SRV_record("nume", "tcp", address, ttl, priority, weight, port, host)
-        a.print()
+        a = SRV_record("defaultName", "UDP", address, ttl, priority, weight, port, host)
         self.mainWindows.closeSrv()
+        self.listaSRV.append(a)
 
 
+
+    def showLista(self):
+        for entry in self.listaSRV:
+            entry.print()
+    def deleteLista(self):
+        self.listaSRV.clear()
 class Ui_Responder(object):
+
     def setupUi(self, MainWindow):
+        self.height = 462
+        self.weight = 635
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(462, 635)
+        MainWindow.resize(self.height,self.weight)
         MainWindow.setMinimumSize(QtCore.QSize(462, 635))
         MainWindow.setMaximumSize(QtCore.QSize(462, 635))
         MainWindow.setStyleSheet("\n"
@@ -134,6 +143,7 @@ class Ui_Responder(object):
         self.AddButton.setGeometry(QtCore.QRect(160, 120, 91, 23))
         self.AddButton.setStyleSheet("background-color: rgb(230, 230, 230);")
         self.AddButton.setObjectName("AddButton")
+        self.AddButton.clicked.connect(self.getDomainName)
         self.Rename_domain_frame = QtWidgets.QFrame(self.MainFrame)
         self.Rename_domain_frame.setGeometry(QtCore.QRect(30, 230, 421, 171))
         self.Rename_domain_frame.setStyleSheet("background-color: rgb(163, 163, 163);\n"
@@ -174,6 +184,7 @@ class Ui_Responder(object):
         self.ShowButton.setGeometry(QtCore.QRect(160, 110, 91, 23))
         self.ShowButton.setStyleSheet("background-color: rgb(230, 230, 230);")
         self.ShowButton.setObjectName("ShowButton")
+        self.ShowButton.clicked.connect(lambda: self.uiSRV.showLista())
         self.CreateButton = QtWidgets.QPushButton(self.SRV)
         self.CreateButton.setGeometry(QtCore.QRect(20, 60, 91, 23))
         self.CreateButton.setStyleSheet("background-color: rgb(230, 230, 230);")
@@ -183,6 +194,7 @@ class Ui_Responder(object):
         self.DeleteButton.setGeometry(QtCore.QRect(310, 60, 91, 23))
         self.DeleteButton.setStyleSheet("background-color: rgb(230, 230, 230);")
         self.DeleteButton.setObjectName("DeleteButton")
+        self.DeleteButton.clicked.connect(lambda: self.uiSRV.deleteLista())
         self.layoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.layoutWidget.setGeometry(QtCore.QRect(0, 0, 2, 2))
         self.layoutWidget.setObjectName("layoutWidget")
@@ -195,13 +207,18 @@ class Ui_Responder(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def showSRV(self):
+        self.uiSRV = Ui_SRV()
         self.Form = QtWidgets.QWidget()
-        self.ui = Ui_SRV()
-        self.ui.setupUi(self.Form,self)
+        self.uiSRV.setupUi(self.Form, self)
         self.Form.show()
 
     def closeSrv(self):
         self.Form.close();
+
+    def getDomainName(self):
+        name=self.WriteDomainName.text()
+        self.WriteDomainName.clear()
+        print(name)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -221,11 +238,17 @@ class Ui_Responder(object):
 
 
 
-if __name__ == "__main__":
-    import sys
+def startInterface():
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_Responder()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    ResolverWindow = QtWidgets.QMainWindow()
+    uiResolver = Ui_MainWindow()
+    uiResolver.setupUi(ResolverWindow)
+    ResolverWindow.setGeometry(961, 194, uiResolver.height, uiResolver.weight)
+    ResolverWindow.show()
+
+    ResponderWindow = QtWidgets.QMainWindow()
+    uiResponder = Ui_Responder()
+    uiResponder.setupUi(ResponderWindow)
+    ResponderWindow.setGeometry(498, 194, uiResolver.height, uiResolver.weight)
+    ResponderWindow.show()
     sys.exit(app.exec_())
