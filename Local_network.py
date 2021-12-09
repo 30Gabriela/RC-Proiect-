@@ -14,19 +14,22 @@ class Local:
         Ip1 = 192
         Ip2 = 168
         Ip3=0
-        Ip4=0
+        Ip4=1
         new_Ip=''
         if len(self.IP_used) == 0:
             Ip4=1
             new_Ip=str(Ip1)+'.'+str(Ip2)+'.'+str(Ip3)+'.'+str(Ip4)
+            print(f"S-a setat adresa Ip: {new_Ip}")
         else:
             last_address=self.IP_used.pop(len(self.IP_used)-1)
+            print(last_address)
             self.IP_used.append(last_address)
             ip1,ip2,ip3,ip4=last_address.split('.')
-            ip4+=1
+            print(ip4)
+            ip4=int(ip4)+1
             if ip4==limita_superioara:
                 ip4=limita_inferioara+1 #am voie sa ocup adresa de retea? sau care va fi masca retelei?
-                ip3=ip3+1
+                ip3=int(ip3)+1
             new_Ip=str(ip1)+'.'+str(ip2)+'.'+str(ip3)+'.'+str(ip4)
         #Ip_address_4=randrange(1,253,1) ?????
         check_Ip=self.verify_IP(new_Ip)
