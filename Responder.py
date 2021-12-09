@@ -4,6 +4,30 @@ from Resolver import Ui_MainWindow
 from Server import UDP
 import sys
 
+
+class Ui_ShowSRV(object):
+    def setupUi(self, Form1):
+        Form1.setObjectName("Form")
+        Form1.resize(260,238)
+        self.frame = QtWidgets.QFrame(Form1)
+        self.frame.setGeometry(QtCore.QRect(-161, -21, 1241, 921))
+        self.frame.setStyleSheet("background-color: rgb(216, 238, 240);")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.WriteSRVEntries = QtWidgets.QTextEdit(self.frame)
+        self.WriteSRVEntries.setGeometry(QtCore.QRect(160, 20, 1011, 881))
+        self.WriteSRVEntries.setReadOnly(True)
+        self.WriteSRVEntries.setObjectName("WriteSRVEntries")
+
+        self.retranslateUi(Form1)
+        QtCore.QMetaObject.connectSlotsByName(Form1)
+
+    def retranslateUi(self, Form1):
+        _translate = QtCore.QCoreApplication.translate
+        Form1.setWindowTitle(_translate("Form", "SRV Entries"))
+
+
 class Ui_SRV(object):
     listaSRV=[]
     listaClienti=[]
@@ -90,11 +114,14 @@ class Ui_SRV(object):
 
 
 
-    def showLista(self):
-        for entry in self.listaSRV:
-            entry.print()
+
+    def getLista(self):
+        return self.listaSRV
     def deleteLista(self):
         self.listaSRV.clear()
+
+
+
 
 class Ui_Responder(object):
 
@@ -195,7 +222,7 @@ class Ui_Responder(object):
         self.ShowButton.setGeometry(QtCore.QRect(160, 110, 91, 23))
         self.ShowButton.setStyleSheet("background-color: rgb(230, 230, 230);")
         self.ShowButton.setObjectName("ShowButton")
-        self.ShowButton.clicked.connect(lambda: self.uiSRV.showLista())
+        self.ShowButton.clicked.connect(self.showSRVEntries)
         self.CreateButton = QtWidgets.QPushButton(self.SRV)
         self.CreateButton.setGeometry(QtCore.QRect(20, 60, 91, 23))
         self.CreateButton.setStyleSheet("background-color: rgb(230, 230, 230);")
@@ -212,16 +239,28 @@ class Ui_Responder(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
+        ##REFERINTA CATRE POPOP UL DE SRV. DACA NU L-AS PUNE AICI, APLICATIA AR LUA CRASH DACA AS DA SHOW INAINTE DE CREATE
+        self.uiSRV = Ui_SRV()
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def showSRV(self):
-        self.uiSRV = Ui_SRV()
         self.Form = QtWidgets.QWidget()
         self.uiSRV.setupUi(self.Form, self)
         self.Form.show()
+
+    def showSRVEntries(self):
+        self.uiShowSRV = Ui_ShowSRV()
+        self.Form1 = QtWidgets.QWidget()
+        self.Form1.setGeometry(237, 591, 200,200)
+        self.uiShowSRV.setupUi(self.Form1)
+        self.Form1.show()
+        entries=self.uiSRV.getLista()
+        for entry in entries:
+            self.uiShowSRV.WriteSRVEntries.insertPlainText(entry.print()+"\n")
+        print("ceva")
 
     def closeSrv(self):
         self.Form.close();
