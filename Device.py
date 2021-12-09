@@ -5,10 +5,7 @@ from Local_network import Local
 import socket
 import time
 
-# Creaza un socket IPv4, TCP
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# Conectare la serverul care asculta pe portul 5000
-s.connect(('127.0.0.1', 5001))
+serverAddressPort = ("127.0.0.1", 20001)
 
 class Device:
     def __init__(self,domain_name):
@@ -21,10 +18,12 @@ class Device:
         self.mDNS_port=5353
         self.thread=None
 
-        # Creaza un socket IPv4, TCP
-        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        # Conectare la serverul care asculta pe portul 5000
-        self.s.connect(('127.0.0.1', 5000))
+        try:
+            self.s = socket.socket(socket.AF_INET, type=socket.SOCK_DGRAM)
+            print("Se creeaza un socket pentru device........")
+        except BaseException as error:
+            print("Error " + error)
+            raise
 
     def set_router_address(self,IP):
         self.router_address=IP
