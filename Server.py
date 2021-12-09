@@ -1,5 +1,7 @@
 import socket
 import threading
+
+import Local_network
 from Device import Device
 
 class UDP:
@@ -9,56 +11,37 @@ class UDP:
         self.clients=[]
         self.running=False
         self.local_network=None
-        try:
-            # Creaza un socket IPv4, TCP
-            self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            # Asociere la adresa locala, portul 5000
-            self.server.bind(('127.0.0.1', 5000))
-            # Coada de asteptare pentru conexiuni de lungime 10
-            self.server.listen(10)
 
-            #vom avea nevoie de un thread pentru asteptarea noilor conexiuni
-            self.ThreadForNewConnections = threading.Thread(target=self.start, args=())
-            self.ThreadForNewConnections.start()
+        try:
+            # Creare socket UDP
+            self.server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            # Asociere la adresa locala, portul 5000
+            self.server.bind(('127.0.0.1', 20001))
+            print("UDP server up and listening")
         except BaseException as error:
-            print("Error "+error)
+            print("Error " + str(error))
             raise
+
+        #vom avea nevoie de un thread pentru asteptarea noilor conexiuni
+        #self.ThreadForNewConnections = threading.Thread(target=self.start, args=())
+        #self.ThreadForNewConnections.start()
+
         self.running=True
 
-    #pornirea socket-ului = asteptarea conexiunilor
     def start(self):
-        # server-ul va astepta noi conexiuni de la clienti
-        try:
-            self.server.listen()
-        except BaseException as error:
-            print("Error "+error)
         print(f'Asteapta conexiuni (oprire server cu Ctrl‐C) pe adresa ({self.mDNS_address},{self.mDNS_port})')
-        while self.running:
-            #aici se face legatura cu clientii server-ului
-            try:
-                # Asteapta cereri de conectare, apel blocant
-                # La conectarea unui client, functia returneaza un nou socket si o tupla (ip_address,port)
-                connection_socket, addr = self.server.accept()
-                #connection socket va fi folosit pentru comunicarea cu clientul, fiecare client avand socket-ul sau
-                #nu ar trebui sa salvez aceste socket uri intr-o lista pentru a le putea folosi si ulterior?
 
+    def registerDevice(self):
+        try:
+            # adaugam un nou dispozitiv
+            newDevice = Device("nume device")
+            newDevice.thread = threading.Thread(target=self.handleDevice)  # functia va receptiona mesajele de la Device
+            self.clients.append(newDevice)
+            self.local_network.register_device(newDevice)
 
-                #adaugam un nou dispozitiv
-                newDevice=Device("nume device")
-                newDevice.thread = threading.Thread(target=self.handleDevice) #functia va receptiona mesajele de la Device
-                self.clients.append(newDevice)
-                self.local_network.register_device(newDevice)
-
-            #apasarea tastelor Ctrl‐C se iese din blucla while 1
-            except KeyboardInterrupt:
-                print("Bye bye")
-
-            print('S‐a conectat clientul', addr)
-            try:
-                newDevice.thread.start()
-            except:
-                print("Eroare la pornirea thread‐ului")
-
+            # apasarea tastelor Ctrl‐C se iese din blucla while 1
+        except KeyboardInterrupt:
+            print("Bye bye")
 
     def handleDevice(conn, addr):
         #trebuie editata dupa nevoile noastre+pachete de date
