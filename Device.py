@@ -4,6 +4,7 @@
 from Local_network import Local
 import socket
 import time
+import threading
 
 serverAddressPort = ("127.0.0.1", 20001)
 
@@ -20,10 +21,29 @@ class Device:
 
         try:
             self.s = socket.socket(socket.AF_INET, type=socket.SOCK_DGRAM)
-            print("Se creeaza un socket pentru device........")
+            print("S-a creat un socket pentru device........")
         except BaseException as error:
             print("Error " + error)
             raise
+
+        #print(f'Asteapta conexiuni (oprire server cu Ctrl‐C) pe adresa ({self.mDNS_address},{self.mDNS_port})')
+        try:
+            receive_thread = threading.Thread(target=self.device_receive)
+            receive_thread.start()
+            print("Se porneste thread ul pentru receive din device")
+        except:
+            print("Eroare la pornirea thread‐ului")
+
+    def device_receive(self):
+        msgFromClient = "Hello UDP Server"
+
+        bytesToSend = str.encode(msgFromClient)
+        self.s.sendto(bytesToSend, serverAddressPort)
+        msgFromServer = self.s.recvfrom(1024)
+
+        msg = "Message from Server {}".format(msgFromServer[0])
+
+        print(msg)
 
     def set_router_address(self,IP):
         self.router_address=IP
