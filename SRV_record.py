@@ -10,7 +10,7 @@ class SRV_record:
         self.target=target #numele de gazda al dispozitivului ce pune la dispozitie acel serviciu
 
     def print(self):
-        print("SRV"+self.name_service+" "+self.priority+" "+self.domain_name+" "+self.ttl+" "+self.weight+" "+self.port+" "+self.target)
+        return str("SRV"+self.name_service+" "+self.priority+" "+self.domain_name+" "+self.ttl+" "+self.weight+" "+self.port+" "+self.target)
 
 
 
