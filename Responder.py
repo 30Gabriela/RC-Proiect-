@@ -1,6 +1,7 @@
 from SRV_record import SRV_record
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Resolver import Ui_MainWindow
+from Server import UDP
 import sys
 class Ui_SRV(object):
     listaSRV=[]
@@ -219,6 +220,7 @@ class Ui_Responder(object):
         name=self.WriteDomainName.text()
         self.WriteDomainName.clear()
         print(name)
+        UDP.registerDevice(self,name)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

@@ -31,10 +31,10 @@ class UDP:
     def start(self):
         print(f'Asteapta conexiuni (oprire server cu Ctrl‐C) pe adresa ({self.mDNS_address},{self.mDNS_port})')
 
-    def registerDevice(self):
+    def registerDevice(self,name):
         try:
             # adaugam un nou dispozitiv
-            newDevice = Device("nume device")
+            newDevice = Device(name)
             newDevice.thread = threading.Thread(target=self.handleDevice)  # functia va receptiona mesajele de la Device
             self.clients.append(newDevice)
             self.local_network.register_device(newDevice)
