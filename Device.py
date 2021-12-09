@@ -1,9 +1,4 @@
-#pentru reteaua locala, adrese IP: 169.254.0.0/16
-#Device-urile vor fi clientii care se vor conecta la server
-
-from Local_network import Local
 import socket
-import time
 import threading
 
 serverAddressPort = ("127.0.0.1", 20001)
@@ -26,7 +21,6 @@ class Device:
             print("Error " + error)
             raise
 
-        #print(f'Asteapta conexiuni (oprire server cu Ctrl‐C) pe adresa ({self.mDNS_address},{self.mDNS_port})')
         try:
             receive_thread = threading.Thread(target=self.device_receive)
             receive_thread.start()
@@ -36,14 +30,12 @@ class Device:
 
     def device_receive(self):
         msgFromClient = "Hello UDP Server"
-
         bytesToSend = str.encode(msgFromClient)
         self.s.sendto(bytesToSend, serverAddressPort)
-        msgFromServer = self.s.recvfrom(1024)
-
-        msg = "Message from Server {}".format(msgFromServer[0])
-
-        print(msg)
+        while 1:
+            msgFromServer = self.s.recvfrom(1024)
+            msg = f"\nMessage from Server for Device {self.router_address}: {msgFromServer[0]}"
+            print(msg)
 
     def set_router_address(self,IP):
         self.router_address=IP
