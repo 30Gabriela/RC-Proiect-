@@ -34,9 +34,10 @@ class UDP:
     def registerDevice(self,name):
         try:
             # adaugam un nou dispozitiv
-            newDevice = Device(name)
+            newDevice = Device(str(name))
             newDevice.thread = threading.Thread(target=self.handleDevice)  # functia va receptiona mesajele de la Device
             self.clients.append(newDevice)
+            print("mema")
             self.local_network.register_device(newDevice)
 
             # apasarea tastelor Ctrl‐C se iese din blucla while 1

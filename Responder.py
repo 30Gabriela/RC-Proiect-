@@ -93,7 +93,7 @@ class Ui_SRV(object):
     def deleteLista(self):
         self.listaSRV.clear()
 class Ui_Responder(object):
-
+    UDP=UDP()
     def setupUi(self, MainWindow):
         self.height = 462
         self.weight = 635
@@ -220,7 +220,7 @@ class Ui_Responder(object):
         name=self.WriteDomainName.text()
         self.WriteDomainName.clear()
         print(name)
-        UDP.registerDevice(self,name)
+        self.UDP.registerDevice(name)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
