@@ -1,7 +1,7 @@
 class SRV_record:
     def __init__(self,name_service, protocol, domain_name, ttl, priority, weigth, port, target):
         self.name_service=name_service
-        self.protocol=protocol  #mereu e TCP/IP
+        self.protocol=protocol  #mereu e UDP
         self.domain_name=domain_name #numele de domeniu unde aceasta intrare este valida
         self.ttl=ttl   #time to alive
         self.priority=priority  #prioritatea gazdei tinta
