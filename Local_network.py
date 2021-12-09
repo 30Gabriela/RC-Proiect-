@@ -31,7 +31,7 @@ class Local:
                 ip4=limita_inferioara+1 #am voie sa ocup adresa de retea? sau care va fi masca retelei?
                 ip3=int(ip3)+1
             new_Ip=str(ip1)+'.'+str(ip2)+'.'+str(ip3)+'.'+str(ip4)
-        #Ip_address_4=randrange(1,253,1) ?????
+
         check_Ip=self.verify_IP(new_Ip)
         if check_Ip==1:
             new_device.set_router_address(new_Ip)
