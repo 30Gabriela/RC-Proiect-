@@ -3,8 +3,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from Resolver import Ui_MainWindow
 from Server import UDP
 import sys
+
 class Ui_SRV(object):
     listaSRV=[]
+    listaClienti=[]
+
     def setupUi(self, Form,main):
         self.mainWindows=main
         Form.setObjectName("Form")
@@ -92,8 +95,15 @@ class Ui_SRV(object):
             entry.print()
     def deleteLista(self):
         self.listaSRV.clear()
+
 class Ui_Responder(object):
-    UDP=UDP()
+
+    UDP_local=None
+
+    def set_UDP(self,udp):
+        global UDP_local
+        UDP_local=udp
+
     def setupUi(self, MainWindow):
         self.height = 462
         self.weight = 635
@@ -219,8 +229,13 @@ class Ui_Responder(object):
     def getDomainName(self):
         name=self.WriteDomainName.text()
         self.WriteDomainName.clear()
-        print(name)
-        self.UDP.registerDevice(name)
+        #print(name)
+        try:
+            UDP.registerDevice(UDP_local,name)
+        except BaseException as err:
+            print("Eroare la inregistrarea unui device..."+err)
+            raise
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -240,7 +255,7 @@ class Ui_Responder(object):
 
 
 
-def startInterface():
+def startInterface(udp):
     app = QtWidgets.QApplication(sys.argv)
     ResolverWindow = QtWidgets.QMainWindow()
     uiResolver = Ui_MainWindow()
@@ -248,8 +263,10 @@ def startInterface():
     ResolverWindow.setGeometry(961, 194, uiResolver.height, uiResolver.weight)
     ResolverWindow.show()
 
+
     ResponderWindow = QtWidgets.QMainWindow()
     uiResponder = Ui_Responder()
+    Ui_Responder.set_UDP(uiResponder,udp)
     uiResponder.setupUi(ResponderWindow)
     ResponderWindow.setGeometry(498, 194, uiResolver.height, uiResolver.weight)
     ResponderWindow.show()
