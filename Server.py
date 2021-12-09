@@ -1,21 +1,25 @@
 import socket
 import threading
+import time
 
 import Local_network
 from Device import Device
 
 class UDP:
     def __init__(self):
-        self.mDNS_port = 5253
+        self.mDNS_port = 5353
         self.mDNS_address = '224.0.0.251'
+        self.local_address='127.0.0.1'
+        self.local_port=20001
         self.clients=[]
+        self.clients_address=[]
         self.running=False
         self.local_network=None
 
         try:
             # Creare socket UDP
             self.server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            self.server.bind(('127.0.0.1', 20001))
+            self.server.bind((self.local_address,self.local_port))
             print("UDP server up and listening")
         except BaseException as error:
             print("Error " + str(error))
@@ -37,11 +41,13 @@ class UDP:
             newDevice = Device(str(name))
             #newDevice.thread = threading.Thread(target=self.handleDevice)  # functia va receptiona mesajele de la Device
             self.clients.append(newDevice)
+            print(f"Lista cu dispozitivele conectate: {self.clients}")
             self.local_network.register_device(newDevice)
 
             # apasarea tastelor Ctrl‐C se iese din blucla while 1
         except KeyboardInterrupt:
             print("Bye bye")
+        self.send_all()
 
     def receive_server(self):
         msgFromServer = "Hello UDP Client"
@@ -49,20 +55,29 @@ class UDP:
         bufferSize=1024
         while True:
             bytesAddressPair = self.server.recvfrom(bufferSize)
-
             message = bytesAddressPair[0]
-
             address = bytesAddressPair[1]
 
+            self.clients_address.append(address)
+            print(address)
             clientMsg = "Message from Client:{}".format(message)
             clientIP = "Client IP Address:{}".format(address)
-
             print(clientMsg)
             print(clientIP)
 
             # Sending a reply to client
-
             self.server.sendto(bytesToSend, address)
+
+    def send_all(self):
+        time.sleep(1)
+        #o functie care va trimite un mesaj tuturor dispozitivelor conectate
+        print("\n\nServer sends a broadcast message\n")
+        msgFromServer = "Hello! Here is the server. This message is for all connected devices!"
+        bytesToSend = str.encode(msgFromServer)
+        bufferSize = 1024
+        for i in self.clients_address:
+            self.server.sendto(bytesToSend, i)
+
 
     def set_local_network(self,network):
         self.local_network=network
