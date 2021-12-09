@@ -19,13 +19,10 @@ class Local:
         if len(self.IP_used) == 0:
             Ip4=1
             new_Ip=str(Ip1)+'.'+str(Ip2)+'.'+str(Ip3)+'.'+str(Ip4)
-            print(f"S-a setat adresa Ip: {new_Ip}")
         else:
             last_address=self.IP_used.pop(len(self.IP_used)-1)
-            print(last_address)
             self.IP_used.append(last_address)
             ip1,ip2,ip3,ip4=last_address.split('.')
-            print(ip4)
             ip4=int(ip4)+1
             if ip4==limita_superioara:
                 ip4=limita_inferioara+1 #am voie sa ocup adresa de retea? sau care va fi masca retelei?
@@ -35,6 +32,7 @@ class Local:
         check_Ip=self.verify_IP(new_Ip)
         if check_Ip==1:
             new_device.set_router_address(new_Ip)
+            print(f"S-a setat adresa IP: {new_Ip}")
             self.IP_used.append(new_Ip)
         self.devices.append(new_device)
 
