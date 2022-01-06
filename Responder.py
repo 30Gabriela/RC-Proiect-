@@ -128,8 +128,8 @@ class Ui_Responder(object):
     UDP_local=None
 
     def set_UDP(self,udp):
-        global UDP_local
-        UDP_local=udp
+        #global UDP_local
+        self.UDP_local=udp
 
     def setupUi(self, MainWindow):
         self.height = 462
@@ -260,7 +260,6 @@ class Ui_Responder(object):
         entries=self.uiSRV.getLista()
         for entry in entries:
             self.uiShowSRV.WriteSRVEntries.insertPlainText(entry.print()+"\n")
-        print("ceva")
 
     def closeSrv(self):
         self.Form.close();
@@ -270,7 +269,7 @@ class Ui_Responder(object):
         self.WriteDomainName.clear()
         #print(name)
         try:
-            UDP.registerDevice(UDP_local,name)
+            UDP.registerDevice(self.UDP_local,name)
         except BaseException as err:
             print("Eroare la inregistrarea unui device..."+err)
             raise
@@ -301,7 +300,6 @@ def startInterface(udp):
     uiResolver.setupUi(ResolverWindow)
     ResolverWindow.setGeometry(961, 194, uiResolver.height, uiResolver.weight)
     ResolverWindow.show()
-
 
     ResponderWindow = QtWidgets.QMainWindow()
     uiResponder = Ui_Responder()
