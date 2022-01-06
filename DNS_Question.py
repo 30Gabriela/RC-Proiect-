@@ -12,7 +12,7 @@ class DNS_Question(Header_DNS_packet.DNS_Header):
     QCLASS_ANY      = b'\x00\xFF'
 
     TYPE_A     =  b'\x00\x01'    #1              #a host address
-    TYPE_WKSD  =  b'\x00\x0b'    #11             #awell known service description
+    TYPE_WKSD  =  b'\x00\x0b'    #11             #a well known service description
     TYPE_DNPTR =  b'\x00\x0c'    #12             #a domain name pointer
     TYPE_HINFO =  b'\x00\x0d'    #13             #host information
     TYPE_SRV   =  b'\x00\x21'    #33             #server selection
@@ -20,7 +20,7 @@ class DNS_Question(Header_DNS_packet.DNS_Header):
 
     END_OF_THE_NAME = b'\x00'
 
-    def __init__(self, packet_type,TYPE_QUESTION,CLASS, answer,host_name):
+    def __init__(self,TYPE_QUESTION,CLASS,host_name):
         #QNAME - the domain for which the query is sent - 2 bytes
         #QTYPE - in cazul nostru va fi host address - 2 bytes
         #QCLASS - 2 bytes
@@ -29,11 +29,9 @@ class DNS_Question(Header_DNS_packet.DNS_Header):
         self.QTYPE = TYPE_QUESTION
         self.QCLASS = CLASS
 
-        opcode=''
-        if packet_type==self.PACKET_TYPE_REQUEST:
-            opcode = Header_DNS_packet.DNS_Header.OPC_REQUEST
-        elif packet_type==self.PACKET_TYPE_RESPONSE:
-            opcode = Header_DNS_packet.DNS_Header.OPC_RESPONSE
+        #pachetul va fi de tip cerere, nu raspuns
+        opcode=self.PACKET_TYPE_REQUEST
+        answer=0
         super(DNS_Question,self).__init__(opcode,answer)
 
         name_elements=self.QNAME.split('.')

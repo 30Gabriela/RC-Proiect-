@@ -4,8 +4,7 @@ class DNS_Header(object):
 
     def __init__(self,opcode,answer):
         assert opcode == self.OPC_REQUEST or opcode == self.OPC_RESPONSE, "Invalid opcode"
-        self.transaction_id=b'\xdb\x42'
-        #b'\x00\x00' # 2 bytes
+        self.transaction_id = b'\x00\x00' # 2 bytes
         self.QR=opcode
         self.OPCODE='0000' #standard query
         if opcode==self.OPC_REQUEST:
