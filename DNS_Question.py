@@ -1,4 +1,5 @@
 import binascii
+import struct
 
 import Header_DNS_packet
 
@@ -28,6 +29,7 @@ class DNS_Question(Header_DNS_packet.DNS_Header):
         self.QNAME = host_name  #".local"
         self.QTYPE = TYPE_QUESTION
         self.QCLASS = CLASS
+        #self.QU_question=
 
         #pachetul va fi de tip cerere, nu raspuns
         opcode=self.PACKET_TYPE_REQUEST
@@ -45,17 +47,17 @@ class DNS_Question(Header_DNS_packet.DNS_Header):
             #print(elem.encode('utf-8').hex())
             self.QNAME_hex.append(elem.encode('utf-8').hex())
         self.QNAME_hex.append('00')
-        #self.QNAME_hex=self.QNAME.encode('utf-8').hex()
-        #print(self.QNAME_hex)
         self.QNAME_hex=bytes.fromhex(''.join(self.QNAME_hex))
 
     def dns_question_pack(self):
         self.header_dns_packet = self.get_header()
         #print(self.header)
         self.packet=b''.join([self.header_dns_packet,self.QNAME_hex, self.QTYPE, self.QCLASS])
+        #print(self.packet)
         return self.packet
 
     def get_dns_question(self):
         return self.dns_question_pack()
 
-#a=DNS_Question(DNS_Question.PACKET_TYPE_RESPONSE,DNS_Question.TYPE_A,DNS_Question.QCLASS_INTERNET,answer=1)
+#a=DNS_Question(DNS_Question.TYPE_A,DNS_Question.QCLASS_INTERNET,'MYPC.local')
+#print(a.get_dns_question())
