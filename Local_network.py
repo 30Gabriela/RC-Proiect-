@@ -4,16 +4,18 @@ class Local:
     def __init__(self,server):
         self.devices=[] #o lista cu dispozitivele din retea
         self.IP_used=[]
+        self.initial_port_for_client=20000
         self.server=server
     #zero-config
 
     def register_device(self,new_device):
         #setare adresa IP
+        #de pus valori pt adrese din reteaua locala utilizata
         limita_superioara=256
         limita_inferioara=0
         Ip1 = 192
         Ip2 = 168
-        Ip3=0
+        Ip3=75
         Ip4=1
         new_Ip=''
         if len(self.IP_used) == 0:
@@ -34,6 +36,10 @@ class Local:
             new_device.set_router_address(new_Ip)
             print(f"S-a setat adresa IP: {new_Ip}")
             self.IP_used.append(new_Ip)
+
+        self.initial_port_for_client+=1
+        new_device.set_port(self.initial_port_for_client)
+
         self.devices.append(new_device)
 
     def verify_IP(self,IP):
