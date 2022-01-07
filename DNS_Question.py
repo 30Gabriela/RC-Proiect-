@@ -39,13 +39,15 @@ class DNS_Question(Header_DNS_packet.DNS_Header):
         name_elements=self.QNAME.split('.')
         self.QNAME_hex=[]
         for elem in name_elements:
+            #se adauga pentru fiecare eticheta un octet cu lungimea ei, iar apoi continutul etichetei
             length=len(elem)
             length_hex=hex(length)[2:]
             if len(length_hex)<2:
-                #self.QNAME_hex.append('0')
                 self.QNAME_hex.append('0'+length_hex)
-            #print(elem.encode('utf-8').hex())
+            elif len(length_hex)==2:
+                self.QNAME_hex.append(length_hex)
             self.QNAME_hex.append(elem.encode('utf-8').hex())
+        #numerele se termina cu un octet null
         self.QNAME_hex.append('00')
         self.QNAME_hex=bytes.fromhex(''.join(self.QNAME_hex))
 
