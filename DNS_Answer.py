@@ -1,3 +1,7 @@
+import socket
+import struct
+import time
+
 import Header_DNS_packet
 
 
@@ -47,6 +51,7 @@ class DNS_Answer(Header_DNS_packet.DNS_Header):
         for elem in name_elements:
             # se adauga pentru fiecare eticheta un octet cu lungimea ei, iar apoi continutul etichetei
             length = len(elem)
+            #print("lungime nume: ",length)
             length_hex = hex(length)[2:]
             if len(length_hex) < 2:
                 self.NAME_hex.append('0' + length_hex)
@@ -57,9 +62,8 @@ class DNS_Answer(Header_DNS_packet.DNS_Header):
         self.NAME_hex.append('00')
         self.NAME_hex = bytes.fromhex(''.join(self.NAME_hex))
 
-    def dns_response_pack(self, address):
+    def dns_answer_pack(self, address):
         self.header_dns_packet = self.get_header()
-
         self.RDATA=[]
         self.RDATA_bytes=[]
         ip=address.split('.')
@@ -89,8 +93,44 @@ class DNS_Answer(Header_DNS_packet.DNS_Header):
         #print(self.packet)
         return self.packet
 
-    def get_dns_response(self,address):
-        return self.dns_response_pack(address)
+    def get_dns_answer(self,address):
+        packet=self.dns_answer_pack(address)
+        return packet
 
-#a=DNS_Answer(DNS_Answer.TYPE_A,DNS_Answer.CLASS_INTERNET,"MyPersonalPC.local")
-#print(a.get_dns_response('192.169.0.3'))
+
+def dns_answer_unpack(message):
+        time.sleep(1)
+        #print(message)
+        bytes=[byte for byte in message]
+        #print(bytes)
+        lungime=bytes[12]
+        index_start=12+1
+        etichete=[]
+        while lungime!=0:
+            eticheta=''.join(map(chr,message[index_start:index_start+lungime]))
+            #eticheta=struct.unpack(f'{lungime}s',message[13:13+lungime])
+            index_start = index_start + lungime + 1
+            lungime=bytes[index_start-1]
+            etichete.append(eticheta)
+        HostName=[]
+        HostName.append(etichete[0])
+        for i in range(1,len(etichete)):
+            HostName.append('.')
+            HostName.append(etichete[i])
+        HostName=''.join(HostName)
+        print("\nHostname extras din DNS_Answer: ", HostName)
+        address=''
+        for i in range(0,4):
+            address+=str(bytes[-4+i])
+            address+='.'
+        address=address[:-1]
+        print("Adresa ip extrasa din DNS_Answer: ", address)
+
+        question = bytes[5]
+        answer = bytes[7]
+        id=''.join((str(i) for i in bytes[0:2]))
+        return id, question, answer, HostName,address
+
+#a=DNS_Answer(DNS_Answer.TYPE_A,DNS_Answer.CLASS_INTERNET,"slkta.local")
+#print(a.get_dns_answer('192.169.0.3'))
+#a.get_dns_answer('192.168.75.1')

@@ -59,7 +59,37 @@ class DNS_Question(Header_DNS_packet.DNS_Header):
         return self.packet
 
     def get_dns_question(self):
-        return self.dns_question_pack()
+        packet = self.dns_question_pack()
+        #self.dns_question_unpack(packet)
+        return packet
+
+def dns_question_unpack(message):
+        #print(message)
+        bytes = [byte for byte in message]
+        #print(bytes)
+        lungime = bytes[12]
+        index_start = 12 + 1
+        etichete = []
+        while lungime!=0:
+            eticheta=''.join(map(chr,message[index_start:index_start+lungime]))
+            #eticheta=struct.unpack(f'{lungime}s',message[13:13+lungime])
+            index_start = index_start + lungime + 1
+            lungime=bytes[index_start-1]
+            etichete.append(eticheta)
+        HostName=[]
+        HostName.append(etichete[0])
+        for i in range(1,len(etichete)):
+            HostName.append('.')
+            HostName.append(etichete[i])
+        HostName=''.join(HostName)
+        print("\nHostname extras din DNS_Question: ", HostName)
+
+        question=bytes[5]
+        answer=bytes[6]
+        id=''.join((str(i) for i in bytes[0:2]))
+
+        return id,question, answer,HostName
+
 
 #a=DNS_Question(DNS_Question.TYPE_A,DNS_Question.QCLASS_INTERNET,'MYPC.local')
 #print(a.get_dns_question())
