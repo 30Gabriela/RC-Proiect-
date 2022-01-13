@@ -53,7 +53,16 @@ class Ui_MainWindow(object):
         self.ACLOGO_2.setPixmap(QtGui.QPixmap("cropped-logo_ac_iasi.qrc.png"))
         self.ACLOGO_2.setScaledContents(True)
         self.ACLOGO_2.setObjectName("ACLOGO_2")
+        self.comboBoxDevice= QtWidgets.QComboBox(self.MainFrame)
+        self.comboBoxDevice.setGeometry(QtCore.QRect(430, 530, 101, 21))
+        self.comboBoxDevice.setObjectName("comboBoxDevice")
+        self.popupSRV = QtWidgets.QPushButton(self.MainFrame)
+        self.popupSRV.setGeometry(QtCore.QRect(540, 529, 50, 21))
+        self.popupSRV.setStyleSheet("background-color: rgb(230, 230, 230);")
+        self.popupSRV.setObjectName("popupSRV")
         MainWindow.setCentralWidget(self.centralwidget)
+
+
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -63,27 +72,33 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Resolver"))
         self.RefreshButton.setText(_translate("MainWindow", "Refresh"))
+        self.popupSRV.setText(_translate("MainWindow", "Show"))
         self.Nume_echip_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt;\">Nume echipament</span></p><p><br/></p></body></html>"))
         self.Tip_echip_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt;\">Tip echipament</span></p></body></html>"))
 
     def displayDevices(self):
+        self.comboBoxDevice.clear()
+        for x in range(len(devices)):
+            self.comboBoxDevice.addItem(str(x+1))
         try:
             filterNume=self.WriteNumeEchip.text()
             if (filterNume==''):
                 self.EcranReadOnly.clear()
                 for device in devices:
-                    self.EcranReadOnly.insertPlainText(device[0]+"  "+device[1] + '\n')
+                    self.EcranReadOnly.insertPlainText(str(devices.index(device)+1)+")\t "+device[0]+"\t "+device[1] + '\n')
+
             else:
                 self.EcranReadOnly.clear()
                 for device in devices:
                     if device[0].find(filterNume)!=-1:
-                        self.EcranReadOnly.insertPlainText(device[0] + "  " + device[1] + '\n')
+                        self.EcranReadOnly.insertPlainText(str(devices.index(device)+1)+")\t "+device[0]+"\t "+device[1] + '\n')
         except Exception as e:
             print(str(e))
 
 
 def addDevices(deviceName):
     devices.append(deviceName)
+
 
 def renameDevice(old,new):
     for x in devices:
