@@ -108,12 +108,15 @@ class Ui_SRV(object):
         weight = self.WriteWeight.text();
         port = self.WritePort.text()
         host = self.WriteHost.text()
-        a = SRV_record("defaultName", "UDP", address, ttl, priority, weight, port, host)
-        self.mainWindows.closeSrv()
-        self.listaSRV.append(a)
-
-
-
+        host+='.local'
+        if(not checkDevicesDuplicate(host)):
+            a = SRV_record("defaultName", "UDP", address, ttl, priority, weight, port, host)
+            self.mainWindows.closeSrv()
+            self.listaSRV.append(a)
+        else:
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Dispozitivul ales pentru srv nu exista.')
+            error_dialog.exec_()
 
     def getLista(self):
         return self.listaSRV
