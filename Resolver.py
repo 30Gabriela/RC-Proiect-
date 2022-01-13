@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-
+devices= []
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self.height=462
@@ -58,12 +58,47 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.RefreshButton.clicked.connect(self.displayDevices)
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Resolver"))
         self.RefreshButton.setText(_translate("MainWindow", "Refresh"))
         self.Nume_echip_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt;\">Nume echipament</span></p><p><br/></p></body></html>"))
         self.Tip_echip_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt;\">Tip echipament</span></p></body></html>"))
+
+    def displayDevices(self):
+        try:
+            filterNume=self.WriteNumeEchip.text()
+            if (filterNume==''):
+                self.EcranReadOnly.clear()
+                for device in devices:
+                    self.EcranReadOnly.insertPlainText(device[0]+"  "+device[1] + '\n')
+            else:
+                self.EcranReadOnly.clear()
+                for device in devices:
+                    if device[0].find(filterNume)!=-1:
+                        self.EcranReadOnly.insertPlainText(device[0] + "  " + device[1] + '\n')
+        except Exception as e:
+            print(str(e))
+
+
+def addDevices(deviceName):
+    devices.append(deviceName)
+
+def renameDevice(old,new):
+    for x in devices:
+
+        if x[0]==old:
+            x[0]=new
+
+def checkDevicesDuplicate(deviceName):
+    for x in devices:
+        if x[0]==deviceName:
+            return False
+
+    return True
+
+
 
 
 

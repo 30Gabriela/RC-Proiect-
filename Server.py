@@ -7,7 +7,7 @@ import Local_network
 import DNS_Question
 import DNS_Answer
 from Device import Device
-
+from Resolver import addDevices
 multicast_group=('224.3.29.71',5353)
 class UDP:
     def __init__(self):
@@ -79,6 +79,11 @@ class UDP:
 
             respond_socket=self.create_socket() #??? nu stiu la ce il voi folosi inca
             # trebuie setata adresa interfetei pentru grupul de multicast
+            nume=list(self.clients_address.keys())
+            ip=list(self.clients_address.values())
+            print(nume[-1])
+            addDevices([nume[-1],ip[-1]])
+
             try:
                 respond_socket.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_IF, socket.inet_aton(add))
             except Exception as err:

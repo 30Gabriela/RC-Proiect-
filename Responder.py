@@ -3,7 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from Resolver import Ui_MainWindow
 from Server import UDP
 import sys
-
+from Resolver import checkDevicesDuplicate,addDevices,renameDevice
 
 class Ui_ShowSRV(object):
     def setupUi(self, Form1):
@@ -242,7 +242,7 @@ class Ui_Responder(object):
         ##REFERINTA CATRE POPOP UL DE SRV. DACA NU L-AS PUNE AICI, APLICATIA AR LUA CRASH DACA AS DA SHOW INAINTE DE CREATE
         self.uiSRV = Ui_SRV()
         MainWindow.setCentralWidget(self.centralwidget)
-
+        self.RenameButton.clicked.connect(self.changeName)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -266,13 +266,35 @@ class Ui_Responder(object):
 
     def getDomainName(self):
         name=self.WriteDomainName.text()
+        name+='.local'
         self.WriteDomainName.clear()
         #print(name)
-        try:
-            UDP.registerDevice(self.UDP_local,name)
-        except BaseException as err:
-            print("Eroare la inregistrarea unui device..."+err)
-            raise
+        boolv =checkDevicesDuplicate(name)
+        if(boolv):
+            try:
+                UDP.registerDevice(self.UDP_local,name)
+            except BaseException as err:
+                print("Eroare la inregistrarea unui device..."+err)
+                raise
+        else:
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Deja exista un device cu acest nume.')
+            error_dialog.exec_()
+    def changeName(self):
+        old=self.WriteOldName.text()
+        old+='.local'
+        new=self.WriteNewName.text()
+        new+='.local'
+
+        if(not checkDevicesDuplicate(old)):
+            try:
+                renameDevice(old,new)
+            except Exception as e:
+                print(str(e))
+        else:
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Numele pe care doriti sa-l schimbati nu exista.')
+            error_dialog.exec_()
 
 
     def retranslateUi(self, MainWindow):
