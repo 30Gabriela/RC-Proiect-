@@ -4,7 +4,7 @@ from Resolver import Ui_MainWindow
 from Server import UDP
 import sys
 from Resolver import checkDevicesDuplicate,addDevices,renameDevice
-
+srvList=[]
 class Ui_ShowSRV(object):
     def setupUi(self, Form1):
         Form1.setObjectName("Form")
@@ -102,6 +102,7 @@ class Ui_SRV(object):
 
 
     def getSRVDates(self):
+        global srvList
         address = self.WriteAddress.text()
         ttl = self.WriteTTL.text()
         priority = self.WritePriority.text()
@@ -113,6 +114,8 @@ class Ui_SRV(object):
             a = SRV_record("defaultName", "UDP", address, ttl, priority, weight, port, host)
             self.mainWindows.closeSrv()
             self.listaSRV.append(a)
+            srvList.append(a)
+
         else:
             error_dialog = QtWidgets.QErrorMessage()
             error_dialog.showMessage('Dispozitivul ales pentru srv nu exista.')
@@ -124,7 +127,8 @@ class Ui_SRV(object):
         self.listaSRV.clear()
 
 
-
+def getSRVtoResolver():
+    return srvList
 
 class Ui_Responder(object):
 

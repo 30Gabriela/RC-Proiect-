@@ -1,3 +1,4 @@
+SRVs=[]
 class SRV_record:
     def __init__(self,name_service, protocol, domain_name, ttl, priority, weigth, port, target):
         self.name_service=name_service
@@ -8,9 +9,10 @@ class SRV_record:
         self.weight=weigth  #o valoare relativa pentru intrarile cu aceeasi greutate
         self.port=port      #portul TCP unde va fi gasit serviciul
         self.target=target #numele de gazda al dispozitivului ce pune la dispozitie acel serviciu
+        SRVs.append(self)
 
     def print(self):
-        return str("SRV"+self.name_service+" "+self.priority+" "+self.domain_name+" "+self.ttl+" "+self.weight+" "+self.port+" "+self.target)
+        return str(self.name_service+" "+self.priority+" "+self.domain_name+" "+self.ttl+" "+self.weight+" "+self.port+" "+self.target)
 
 
 

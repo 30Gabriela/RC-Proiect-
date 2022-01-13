@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
-
+from PyQt5.QtWidgets import QMessageBox
+from SRV_record import SRVs
 devices= []
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -62,7 +62,7 @@ class Ui_MainWindow(object):
         self.popupSRV.setObjectName("popupSRV")
         MainWindow.setCentralWidget(self.centralwidget)
 
-
+        self.popupSRV.clicked.connect(self.SRVshowButton)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -96,6 +96,23 @@ class Ui_MainWindow(object):
             print(str(e))
 
 
+    def SRVshowButton(self):
+        id=self.comboBoxDevice.currentText()
+        print(id)
+        try:
+            msg = QMessageBox()
+            msg.setWindowTitle("SRV")
+            msg.setText("Lista SRV uri pentru device ul cu numele:   {} ".format(str(devices[int(id)-1][0])))
+            string=""
+            for x in SRVs:
+                if x.target==str(devices[int(id)-1][0]):
+                    string+=x.print()+"\n"
+            msg.setDetailedText(string)
+            x = msg.exec_()
+        except Exception as e:
+            print(e)
+
+
 def addDevices(deviceName):
     devices.append(deviceName)
 
@@ -115,6 +132,66 @@ def checkDevicesDuplicate(deviceName):
 
 
 
+"""
+Interfata pentru SRV in forma de tabela daca este timp :)
+class Ui_Form(object):
+    def setupUi(self, Form):
+        if not Form.objectName():
+            Form.setObjectName(u"Form")
+        Form.resize(575, 455)
+        Form.setMinimumSize(QSize(575, 455))
+        Form.setMaximumSize(QSize(575, 455))
+        self.MainFrame = QFrame(Form)
+        self.MainFrame.setObjectName(u"MainFrame")
+        self.MainFrame.setGeometry(QRect(-51, -91, 1581, 1021))
+        self.MainFrame.setFrameShape(QFrame.StyledPanel)
+        self.MainFrame.setFrameShadow(QFrame.Raised)
+        self.tableWidget = QTableWidget(self.MainFrame)
+        if (self.tableWidget.columnCount() < 7):
+            self.tableWidget.setColumnCount(7)
+        font = QFont()
+        font.setPointSize(10)
+        __qtablewidgetitem = QTableWidgetItem()
+        __qtablewidgetitem.setFont(font);
+        self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        __qtablewidgetitem3 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem3)
+        __qtablewidgetitem4 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem4)
+        __qtablewidgetitem5 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(5, __qtablewidgetitem5)
+        __qtablewidgetitem6 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(6, __qtablewidgetitem6)
+        self.tableWidget.setObjectName(u"tableWidget")
+        self.tableWidget.setGeometry(QRect(45, 91, 581, 461))
 
+        self.retranslateUi(Form)
+
+        QMetaObject.connectSlotsByName(Form)
+    # setupUi
+
+    def retranslateUi(self, Form):
+        Form.setWindowTitle(QCoreApplication.translate("Form", u"SRV", None))
+        ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("Form", u"Name", None));
+        ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("Form", u"Protocol", None));
+        ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("Form", u"Domain", None));
+        ___qtablewidgetitem3 = self.tableWidget.horizontalHeaderItem(3)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("Form", u"TTL", None));
+        ___qtablewidgetitem4 = self.tableWidget.horizontalHeaderItem(4)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("Form", u"Priority", None));
+        ___qtablewidgetitem5 = self.tableWidget.horizontalHeaderItem(5)
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("Form", u"Weight", None));
+        ___qtablewidgetitem6 = self.tableWidget.horizontalHeaderItem(6)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("Form", u"Port", None));
+    # retranslateUi
+
+"""
 
 

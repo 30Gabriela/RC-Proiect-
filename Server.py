@@ -8,6 +8,7 @@ import DNS_Question
 import DNS_Answer
 from Device import Device
 from Resolver import addDevices
+
 multicast_group=('224.3.29.71',5353)
 class UDP:
     def __init__(self):
