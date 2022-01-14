@@ -98,7 +98,7 @@ class Ui_MainWindow(object):
 
     def SRVshowButton(self):
         id=self.comboBoxDevice.currentText()
-        print(id)
+
         try:
             msg = QMessageBox()
             msg.setWindowTitle("SRV")

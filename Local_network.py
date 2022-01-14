@@ -1,5 +1,6 @@
 from random import randrange
-
+import logging
+logging.basicConfig(filename='LOGS.log', encoding='utf-8',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
 class Local:
     def __init__(self,server):
         self.devices=[] #o lista cu dispozitivele din retea
@@ -34,7 +35,8 @@ class Local:
         check_Ip=self.verify_IP(new_Ip)
         if check_Ip==1:
             new_device.set_router_address(new_Ip)
-            print(f"S-a setat adresa IP: {new_Ip}")
+            logging.info('S-a setat adresa ip: {}'.format(new_Ip))
+            #print(f"S-a setat adresa IP: {new_Ip}")
             self.IP_used.append(new_Ip)
 
         self.initial_port_for_client+=1
