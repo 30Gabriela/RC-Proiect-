@@ -2,7 +2,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from SRV_record import SRVs
 devices= []
+UDP_server=None
+
 class Ui_MainWindow(object):
+    UDP_local = None
+
+    def set_UDP(self, udp):
+        global UDP_server
+        # global UDP_local
+        self.UDP_local = udp
+        UDP_server=udp
+
     def setupUi(self, MainWindow):
         self.height=462
         self.weight=635
@@ -98,7 +108,7 @@ class Ui_MainWindow(object):
                 for device in devices:
                     for srv in SRVs:
                         if device[0]==srv.target:
-                            if srv.domain_name.find(filterServiciu) != -1:
+                            if srv.name_service.find(filterServiciu)!=-1:
                                 self.EcranReadOnly.insertPlainText(
                                     str(devices.index(device) + 1) + ")\t " + device[0] + "\t " + device[1] + '\n')
             else:
@@ -138,10 +148,16 @@ def addDevices(deviceName):
 
 
 def renameDevice(old,new):
+    try:
+        UDP_server.query_name(old)
+    except Exception as err:
+        print(err)
     for x in devices:
 
         if x[0]==old:
             x[0]=new
+            UDP_server.send_DNS_answer(x[1],new)
+            print("x:..........",x)
 
 def checkDevicesDuplicate(deviceName):
     for x in devices:
@@ -150,7 +166,12 @@ def checkDevicesDuplicate(deviceName):
 
     return True
 
+def get_address_of_host(deviceName):
+    for x in devices:
+        if x[0]==deviceName:
+            return x[1]
 
+    return '0.0.0.0'
 
 """
 Interfata pentru SRV in forma de tabela daca este timp :)
