@@ -165,6 +165,14 @@ class UDP:
         self.server_send.sendto(msgFromServer,multicast_group)
         self.interogate_name=1
 
+    def query_srv(self,name="user"):
+        #print(name)
+        msgFromServer = DNS_Question.DNS_Question(DNS_Question.DNS_Question.TYPE_SRV,
+                                                  DNS_Question.DNS_Question.QCLASS_INTERNET,
+                                                  name).get_dns_question()
+        self.server_send.sendto(msgFromServer,multicast_group)
+        self.interogate_name=1
+
     def send_DNS_answer(self,address,name="user"):
         time.sleep(1)
         try:

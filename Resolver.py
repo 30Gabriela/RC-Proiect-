@@ -105,6 +105,7 @@ class Ui_MainWindow(object):
                 for device in devices:
                     if device[0].find(filterNume)!=-1:
                         UDP_server.query_name(device[0])
+                        UDP_server.send_DNS_answer(device[1], device[0])
                         self.EcranReadOnly.insertPlainText(str(devices.index(device)+1)+")\t "+device[0]+"\t "+device[1] + '\n')
             elif(filterNume==''):
                 self.EcranReadOnly.clear()
@@ -113,6 +114,7 @@ class Ui_MainWindow(object):
                         if device[0]==srv.target:
                             if srv.name_service.find(filterServiciu) != -1:
                                 dates = srv.get_dates()
+                                UDP_server.query_srv("_"+srv.name_service+"._udp.local")
                                 UDP_server.send_SRV_answer(dates)
                                 self.EcranReadOnly.insertPlainText(
                                     str(devices.index(device) + 1) + ")\t " + device[0] + "\t " + device[1] + '\n')
@@ -123,6 +125,7 @@ class Ui_MainWindow(object):
                         if device[0] == srv.target:
                             if (srv.name_service.find(filterServiciu) != -1 and device[0].find(filterNume)!=-1):
                                 UDP_server.query_name(device[0])
+                                UDP_server.query_srv("_" + srv.name_service + "._udp.local")
                                 dates = srv.get_dates()
                                 UDP_server.send_SRV_answer(dates)
                                 self.EcranReadOnly.insertPlainText(
@@ -144,6 +147,7 @@ class Ui_MainWindow(object):
             string=""
             for x in SRVs:
                 if x.target==str(devices[int(id)-1][0]):
+                    UDP_server.query_srv("_" + x.name_service + "._udp.local")
                     dates = x.get_dates()
                     UDP_server.send_SRV_answer(dates)
                     string+=x.print()+"\n"
