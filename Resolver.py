@@ -82,16 +82,36 @@ class Ui_MainWindow(object):
             self.comboBoxDevice.addItem(str(x+1))
         try:
             filterNume=self.WriteNumeEchip.text()
-            if (filterNume==''):
+            filterServiciu = self.WriteTipEchip.text()
+            if (filterNume=='' and filterServiciu==''):
                 self.EcranReadOnly.clear()
                 for device in devices:
                     self.EcranReadOnly.insertPlainText(str(devices.index(device)+1)+")\t "+device[0]+"\t "+device[1] + '\n')
 
-            else:
+            elif(filterServiciu==''):
                 self.EcranReadOnly.clear()
                 for device in devices:
                     if device[0].find(filterNume)!=-1:
                         self.EcranReadOnly.insertPlainText(str(devices.index(device)+1)+")\t "+device[0]+"\t "+device[1] + '\n')
+            elif(filterNume==''):
+                self.EcranReadOnly.clear()
+                for device in devices:
+                    for srv in SRVs:
+                        if device[0]==srv.target:
+                            if srv.domain_name.find(filterServiciu) != -1:
+                                self.EcranReadOnly.insertPlainText(
+                                    str(devices.index(device) + 1) + ")\t " + device[0] + "\t " + device[1] + '\n')
+            else:
+                self.EcranReadOnly.clear()
+                for device in devices:
+                    for srv in SRVs:
+                        if device[0] == srv.target:
+                            if (srv.domain_name.find(filterServiciu) != -1 and device[0].find(filterNume)!=-1):
+                                self.EcranReadOnly.insertPlainText(
+                                    str(devices.index(device) + 1) + ")\t " + device[0] + "\t " + device[1] + '\n')
+
+
+
         except Exception as e:
             print(str(e))
 
