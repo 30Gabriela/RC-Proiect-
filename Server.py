@@ -1,5 +1,5 @@
 import logging
-logging.basicConfig(filename='LOGS.log', encoding='utf-8',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
+logging.basicConfig(filename='LOGS.log',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
 
 
 import socket
@@ -10,6 +10,7 @@ import time
 import Local_network
 import DNS_Question
 import DNS_Answer
+import SRV_packet
 from Device import Device
 from Resolver import addDevices
 
@@ -173,6 +174,15 @@ class UDP:
 
             #print(err)
         self.server_send.sendto(msgFromClient, multicast_group)
+
+    def send_SRV_answer(self,dates):
+        time.sleep(1)
+        try:
+            msgFromClient = SRV_packet.SRV_packet(dates).get_dns_srv_answer()
+        except Exception as err:
+            print(err)
+        self.server_send.sendto(msgFromClient, multicast_group)
+
 
     def set_local_network(self,network):
         self.local_network=network

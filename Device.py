@@ -6,8 +6,6 @@ import time
 import DNS_Answer
 import DNS_Question
 import Header_DNS_packet
-import logging
-logging.basicConfig(filename='LOGS.log', encoding='utf-8',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
 
 server_address='127.0.0.1'
 multicast_group=('224.3.29.71',5353)
@@ -31,22 +29,17 @@ class Device:
             group = socket.inet_aton('224.3.29.71')
             mreq = struct.pack('4sL', group, socket.INADDR_ANY)
             self.server_receive.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
-            logging.info('S-a creat un socket_receive pentru device')
-            #print("S-a creat un socket_receive pentru device........")
+            print("S-a creat un socket_receive pentru device........")
 
         except BaseException as error:
-            logging.error('Device error: {}'.format(error))
-            #print("Error " + error)
+            print("Error " + error)
 
         try:
             receive_thread = threading.Thread(target=self.device_receive)
             receive_thread.start()
-            logging.info('Se porneste thread ul pentru receive din device')
-
-            #print("Se porneste thread ul pentru receive din device")
+            print("Se porneste thread ul pentru receive din device")
         except:
-            logging.error('Eroare la pornirea thread-ului in device')
-            #print("Eroare la pornirea thread‐ului")
+            print("Eroare la pornirea thread‐ului")
 
     def multicast_socket(self):
         server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
@@ -65,39 +58,28 @@ class Device:
         while 1:
             try:
                 msgFromServer,addr = self.server_receive.recvfrom(1024)
-                logging.info('Device-ul {} a primit de la server {}'.format(self.router_address,msgFromServer))
                 msg = f"Device-ul {self.router_address} a primit de la server : {msgFromServer}"
-                #print(msg)
+                print(msg)
                 try:
                     dns_answer=DNS_Answer.dns_answer_unpack(message=msgFromServer)
                     dns_question=DNS_Question.dns_question_unpack(message=msgFromServer)
                     if dns_answer[0]=='00' and dns_answer[1]==0 and dns_answer[2]==1 and dns_answer[3]!=self.domain_name:
                         self.cache.update({dns_answer[3]:dns_answer[4]})
-
-                        #print(self.cache)
+                        print(self.cache)
                     if dns_answer[0]=='00' and dns_question[1]==1 and dns_answer[2]==0 and dns_question[3]==self.domain_name:
-                        logging.info('Am gasit device-ul cu numele cautat')
-                        #print("Eu suuuuuuuuuuuuunt device-ul cu numele cautat")
+                        print("Eu suuuuuuuuuuuuunt device-ul cu numele cautat")
                 except Exception as err:
-                    logging.error('Device device_receive Error: {}'.format(err))
-
-                    #print(err)
-
+                    print(err)
                 time.sleep(1)
-
-                #self.device_send("Am primit salutul")
+                self.device_send("Am primit salutul")
             except Exception as err:
-                logging.error('Device device_receive Error: {}'.format(err))
-
-                #print(err)
+                print(err)
 
     def device_send(self, msg):
         try:
             self.server_send.sendto(str.encode(msg),('127.0.0.1',self.port))
         except Exception as err:
-            logging.error('Device device_send Error: {}'.format(err))
-
-            #print(err)
+            print(err)
         #self.server_send.sendto(str.encode(msg), (self.router_address, self.port))
 
     def set_router_address(self,IP):

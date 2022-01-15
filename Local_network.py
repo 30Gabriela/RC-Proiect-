@@ -1,6 +1,6 @@
 from random import randrange
 import logging
-logging.basicConfig(filename='LOGS.log', encoding='utf-8',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
+logging.basicConfig(filename='LOGS.log',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
 class Local:
     def __init__(self,server):
         self.devices=[] #o lista cu dispozitivele din retea

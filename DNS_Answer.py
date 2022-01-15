@@ -1,7 +1,7 @@
 import socket
 import struct
 import logging
-logging.basicConfig(filename='LOGS.log', encoding='utf-8',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
+logging.basicConfig(filename='LOGS.log',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
 
 import time
 
@@ -19,6 +19,7 @@ class DNS_Answer(Header_DNS_packet.DNS_Header):
     TYPE_CNAME  = b'\x00\x05'  # 5              #the canonical name for an alias
     TYPE_WKSD   = b'\x00\x0b'  # 11             #a well known service description
     TYPE_HINFO  = b'\x00\x0d'  # 13             #host information
+    TYPE_SRV    = b'\x00\x21'  # 33             #server selection
 
     CLASS_INTERNET = b'\x00\x01'
     CLASS_RESERVED = b'\x00\x00'
@@ -137,8 +138,8 @@ def dns_answer_unpack(message):
 
         question = bytes[5]
         answer = bytes[7]
-        id=''.join((str(i) for i in bytes[0:2]))
-        return id, question, answer, HostName,address
+        #id=''.join((str(i) for i in bytes[0:2]))
+        return  question, answer, HostName,address
 
 #a=DNS_Answer(DNS_Answer.TYPE_A,DNS_Answer.CLASS_INTERNET,"slkta.local")
 #print(a.get_dns_answer('192.169.0.3'))

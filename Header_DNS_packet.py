@@ -1,11 +1,15 @@
 
+import random
+
+
 class DNS_Header(object):
     OPC_REQUEST = 0
     OPC_RESPONSE = 1
 
     def __init__(self,opcode,answer):
         assert opcode == self.OPC_REQUEST or opcode == self.OPC_RESPONSE, "Invalid opcode"
-        self.transaction_id = b'\x00\x00' # 2 bytes
+        self.transaction_id = random.randrange(1,65535)#b'\x00\x00' # 2 bytes
+        self.transaction_id=hex(self.transaction_id)[2:]
         self.QR=opcode
         self.OPCODE='0000' #standard query
         if opcode==self.OPC_REQUEST:
@@ -33,6 +37,15 @@ class DNS_Header(object):
             self.ANCOUNT=b'\x00\x00'
         self.NSCOUNT=b'\x00\x00'
         self.ARCOUNT=b'\x00\x00'
+
+        #print(self.transaction_id)
+        if len(self.transaction_id )< 4:
+            aux = self.transaction_id
+            self.transaction_id = ''
+            for i in range(1, 4- len(self.transaction_id)):
+                self.transaction_id += '0'
+            self.transaction_id += str(aux)
+        self.transaction_id = bytes.fromhex(self.transaction_id)
 
     def get_header(self):
         self.header_pack()

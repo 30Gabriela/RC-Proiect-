@@ -3,7 +3,7 @@ import struct
 
 import Header_DNS_packet
 import logging
-logging.basicConfig(filename='LOGS.log', encoding='utf-8',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
+logging.basicConfig(filename='LOGS.log',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
 
 class DNS_Question(Header_DNS_packet.DNS_Header):
     PACKET_TYPE_REQUEST  = 0
@@ -88,10 +88,9 @@ def dns_question_unpack(message):
 
         question=bytes[5]
         answer=bytes[6]
-        id=''.join((str(i) for i in bytes[0:2]))
 
-        return id,question, answer,HostName
+        return question, answer,HostName
 
 
-#a=DNS_Question(DNS_Question.TYPE_A,DNS_Question.QCLASS_INTERNET,'MYPC.local')
-#print(a.get_dns_question())
+a=DNS_Question(DNS_Question.TYPE_A,DNS_Question.QCLASS_INTERNET,'MYPC.local')
+print(a.get_dns_question())

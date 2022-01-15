@@ -14,5 +14,16 @@ class SRV_record:
     def print(self):
         return str(self.name_service+" "+self.priority+" "+self.domain_name+" "+self.ttl+" "+self.weight+" "+self.port+" "+self.target)
 
+    def get_dates(self):
+        list=[]
+        list.append(self.name_service)
+        list.append(self.priority)
+        list.append(self.domain_name)
+        list.append(self.ttl)
+        list.append(self.weight)
+        list.append(self.port)
+        list.append(self.target)
+        return list
+
 
 

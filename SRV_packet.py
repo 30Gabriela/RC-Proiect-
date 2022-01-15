@@ -74,7 +74,7 @@ class SRV_packet(Header_DNS_packet.DNS_Header):
         self.NAME_hex.append('00')
         self.NAME_hex = bytes.fromhex(''.join(self.NAME_hex))
 
-    def dns_answer_srv_pack(self, address):
+    def dns_answer_srv_pack(self):
             self.header_dns_packet = self.get_header()
             #self.RDATA = []
             self.RDATA_bytes = []
@@ -129,8 +129,8 @@ class SRV_packet(Header_DNS_packet.DNS_Header):
 
             return self.packet
 
-    def get_dns_srv_answer(self,address):
-        packet=self.dns_answer_srv_pack(address)
+    def get_dns_srv_answer(self):
+        packet=self.dns_answer_srv_pack()
         return packet
 
     def dns_answer_srv_unpack(message):
