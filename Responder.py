@@ -1,5 +1,6 @@
 import logging
-logging.basicConfig(filename='LOGS.log', encoding='utf-8',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
+logging.basicConfig(filename='LOGS.log',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
+import Resolver
 from SRV_record import SRV_record
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Resolver import Ui_MainWindow
@@ -7,6 +8,7 @@ from Server import UDP
 import sys
 from Resolver import checkDevicesDuplicate,addDevices,renameDevice
 srvList=[]
+UDP_server=None
 class Ui_ShowSRV(object):
     def setupUi(self, Form1):
         Form1.setObjectName("Form")
@@ -113,7 +115,15 @@ class Ui_SRV(object):
         host = self.WriteHost.text()
         host+='.local'
         if(not checkDevicesDuplicate(host)):
-            a = SRV_record("defaultName", "UDP", address, ttl, priority, weight, port, host)
+            #a = SRV_record("defaultName", "UDP", address, ttl, priority, weight, port, host)
+            a = SRV_record(address, "UDP", 'local', ttl, priority, weight, port, host)
+            address=Resolver.get_address_of_host(host)
+            date_srv=a.get_dates()
+            try:
+                UDP_server.send_SRV_answer(date_srv)
+            except Exception as err:
+                print(err)
+            #aici sa trimit un dns_answer cu srv_record
             self.mainWindows.closeSrv()
             self.listaSRV.append(a)
             srvList.append(a)
@@ -137,8 +147,9 @@ class Ui_Responder(object):
     UDP_local=None
 
     def set_UDP(self,udp):
-        #global UDP_local
+        global UDP_server
         self.UDP_local=udp
+        UDP_server=udp
 
     def setupUi(self, MainWindow):
         self.height = 462
@@ -269,6 +280,8 @@ class Ui_Responder(object):
         entries=self.uiSRV.getLista()
         for entry in entries:
             self.uiShowSRV.WriteSRVEntries.insertPlainText(entry.print()+"\n")
+            dates = entry.get_dates()
+            UDP_server.send_SRV_answer(dates)
 
     def closeSrv(self):
         self.Form.close();
@@ -291,6 +304,7 @@ class Ui_Responder(object):
             error_dialog = QtWidgets.QErrorMessage()
             error_dialog.showMessage('Deja exista un device cu acest nume.')
             error_dialog.exec_()
+
     def changeName(self):
         old=self.WriteOldName.text()
         old+='.local'
@@ -330,6 +344,7 @@ def startInterface(udp):
     app = QtWidgets.QApplication(sys.argv)
     ResolverWindow = QtWidgets.QMainWindow()
     uiResolver = Ui_MainWindow()
+    Ui_MainWindow.set_UDP(uiResolver,udp)
     uiResolver.setupUi(ResolverWindow)
     ResolverWindow.setGeometry(961, 194, uiResolver.height, uiResolver.weight)
     ResolverWindow.show()
