@@ -1,0 +1,162 @@
+14/01/2022 03:31:16 PM----UDP server(used for sending messages) up
+14/01/2022 03:31:16 PM----Server waiting for devices
+14/01/2022 03:31:16 PM----Se porneste thread ul pentru receive
+14/01/2022 03:31:18 PM----Se va inregistra un nou device cu numele ceva.local
+14/01/2022 03:31:18 PM----S-a creat un socket_receive pentru device
+14/01/2022 03:31:18 PM----Se porneste thread ul pentru receive din device
+14/01/2022 03:31:18 PM----S-a setat adresa ip: 192.168.75.1
+14/01/2022 03:31:18 PM----Dispozitivele inregistrate si adresele lor: {'ceva.local': '192.168.75.1'}
+14/01/2022 03:31:18 PM----Device nou inregistrat: 192.168.75.1,20001
+14/01/2022 03:31:19 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x04ceva\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x01'
+14/01/2022 03:31:19 PM----Server register_device Error: [WinError 10049] The requested address is not valid in its context
+14/01/2022 03:31:20 PM----Hostname extras din DNS_Answer: ceva.local
+14/01/2022 03:31:20 PM----Ip extras din DNS_Answer: 192.168.75.1
+14/01/2022 03:31:20 PM----Hostname extras din DNS_Question: ceva.local
+14/01/2022 03:31:23 PM----Se va inregistra un nou device cu numele altceva.local
+14/01/2022 03:31:23 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x07altceva\x05local\x00\x00\x01\x00\x01'
+14/01/2022 03:31:23 PM----S-a creat un socket_receive pentru device
+14/01/2022 03:31:23 PM----Se porneste thread ul pentru receive din device
+14/01/2022 03:31:23 PM----S-a setat adresa ip: 192.168.75.2
+14/01/2022 03:31:23 PM----Dispozitivele inregistrate si adresele lor: {'ceva.local': '192.168.75.1', 'altceva.local': '192.168.75.2'}
+14/01/2022 03:31:23 PM----Device nou inregistrat: 192.168.75.2,20002
+14/01/2022 03:31:24 PM----Hostname extras din DNS_Answer: altceva.local
+14/01/2022 03:31:24 PM----Device-ul 192.168.75.2 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x07altceva\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x02'
+14/01/2022 03:31:24 PM----Ip extras din DNS_Answer: 0.1.0.1
+14/01/2022 03:31:24 PM----Server register_device Error: [WinError 10049] The requested address is not valid in its context
+14/01/2022 03:31:24 PM----Hostname extras din DNS_Question: altceva.local
+14/01/2022 03:31:25 PM----Hostname extras din DNS_Answer: altceva.local
+14/01/2022 03:31:25 PM----Ip extras din DNS_Answer: 192.168.75.2
+14/01/2022 03:31:25 PM----Hostname extras din DNS_Question: altceva.local
+14/01/2022 03:31:25 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x07altceva\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x02'
+14/01/2022 03:31:26 PM----Hostname extras din DNS_Answer: altceva.local
+14/01/2022 03:31:26 PM----Ip extras din DNS_Answer: 192.168.75.2
+14/01/2022 03:31:26 PM----Hostname extras din DNS_Question: altceva.local
+15/01/2022 09:13:01 PM----UDP server(used for sending messages) up
+15/01/2022 09:13:01 PM----Server waiting for devices
+15/01/2022 09:13:01 PM----Se porneste thread ul pentru receive
+15/01/2022 09:14:54 PM----UDP server(used for sending messages) up
+15/01/2022 09:14:54 PM----Server waiting for devices
+15/01/2022 09:14:54 PM----Se porneste thread ul pentru receive
+15/01/2022 09:14:57 PM----Se va inregistra un nou device cu numele ceva.local
+15/01/2022 09:14:57 PM----S-a creat un socket_receive pentru device
+15/01/2022 09:14:57 PM----Se porneste thread ul pentru receive din device
+15/01/2022 09:14:57 PM----S-a setat adresa ip: 192.168.75.1
+15/01/2022 09:14:57 PM----Dispozitivele inregistrate si adresele lor: {'ceva.local': '192.168.75.1'}
+15/01/2022 09:14:57 PM----Device nou inregistrat: 192.168.75.1,20001
+15/01/2022 09:14:58 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x04ceva\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x01'
+15/01/2022 09:14:58 PM----Server register_device Error: [WinError 10049] The requested address is not valid in its context
+15/01/2022 09:14:59 PM----Hostname extras din DNS_Answer: ceva.local
+15/01/2022 09:14:59 PM----Ip extras din DNS_Answer: 192.168.75.1
+15/01/2022 09:14:59 PM----Hostname extras din DNS_Question: ceva.local
+15/01/2022 09:15:34 PM----Se va inregistra un nou device cu numele altcv.local
+15/01/2022 09:15:34 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x05altcv\x05local\x00\x00\x01\x00\x01'
+15/01/2022 09:15:34 PM----S-a creat un socket_receive pentru device
+15/01/2022 09:15:34 PM----Se porneste thread ul pentru receive din device
+15/01/2022 09:15:34 PM----S-a setat adresa ip: 192.168.75.2
+15/01/2022 09:15:34 PM----Dispozitivele inregistrate si adresele lor: {'ceva.local': '192.168.75.1', 'altcv.local': '192.168.75.2'}
+15/01/2022 09:15:34 PM----Device nou inregistrat: 192.168.75.2,20002
+15/01/2022 09:15:35 PM----Hostname extras din DNS_Answer: altcv.local
+15/01/2022 09:15:35 PM----Ip extras din DNS_Answer: 0.1.0.1
+15/01/2022 09:15:35 PM----Hostname extras din DNS_Question: altcv.local
+15/01/2022 09:15:35 PM----Device-ul 192.168.75.2 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x05altcv\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x02'
+15/01/2022 09:15:35 PM----Server register_device Error: [WinError 10049] The requested address is not valid in its context
+15/01/2022 09:15:36 PM----Hostname extras din DNS_Answer: altcv.local
+15/01/2022 09:15:36 PM----Ip extras din DNS_Answer: 192.168.75.2
+15/01/2022 09:15:36 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x05altcv\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x02'
+15/01/2022 09:15:36 PM----Hostname extras din DNS_Question: altcv.local
+15/01/2022 09:15:37 PM----Hostname extras din DNS_Answer: altcv.local
+15/01/2022 09:15:37 PM----Ip extras din DNS_Answer: 192.168.75.2
+15/01/2022 09:15:37 PM----Hostname extras din DNS_Question: altcv.local
+15/01/2022 09:16:22 PM----UDP server(used for sending messages) up
+15/01/2022 09:16:22 PM----Server waiting for devices
+15/01/2022 09:16:22 PM----Se porneste thread ul pentru receive
+15/01/2022 09:16:23 PM----Se va inregistra un nou device cu numele ceva.local
+15/01/2022 09:16:23 PM----S-a creat un socket_receive pentru device
+15/01/2022 09:16:23 PM----Se porneste thread ul pentru receive din device
+15/01/2022 09:16:23 PM----S-a setat adresa ip: 192.168.75.1
+15/01/2022 09:16:23 PM----Dispozitivele inregistrate si adresele lor: {'ceva.local': '192.168.75.1'}
+15/01/2022 09:16:23 PM----Device nou inregistrat: 192.168.75.1,20001
+15/01/2022 09:16:24 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x04ceva\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x01'
+15/01/2022 09:16:24 PM----Server register_device Error: [WinError 10049] The requested address is not valid in its context
+15/01/2022 09:16:25 PM----Hostname extras din DNS_Answer: ceva.local
+15/01/2022 09:16:25 PM----Ip extras din DNS_Answer: 192.168.75.1
+15/01/2022 09:16:25 PM----Hostname extras din DNS_Question: ceva.local
+15/01/2022 09:16:27 PM----Se va inregistra un nou device cu numele altceva.local
+15/01/2022 09:16:27 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x07altceva\x05local\x00\x00\x01\x00\x01'
+15/01/2022 09:16:27 PM----S-a creat un socket_receive pentru device
+15/01/2022 09:16:27 PM----Se porneste thread ul pentru receive din device
+15/01/2022 09:16:27 PM----S-a setat adresa ip: 192.168.75.2
+15/01/2022 09:16:27 PM----Dispozitivele inregistrate si adresele lor: {'ceva.local': '192.168.75.1', 'altceva.local': '192.168.75.2'}
+15/01/2022 09:16:27 PM----Device nou inregistrat: 192.168.75.2,20002
+15/01/2022 09:16:28 PM----Hostname extras din DNS_Answer: altceva.local
+15/01/2022 09:16:28 PM----Device-ul 192.168.75.2 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x07altceva\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x02'
+15/01/2022 09:16:28 PM----Ip extras din DNS_Answer: 0.1.0.1
+15/01/2022 09:16:28 PM----Server register_device Error: [WinError 10049] The requested address is not valid in its context
+15/01/2022 09:16:28 PM----Hostname extras din DNS_Question: altceva.local
+15/01/2022 09:16:29 PM----Hostname extras din DNS_Answer: altceva.local
+15/01/2022 09:16:29 PM----Ip extras din DNS_Answer: 192.168.75.2
+15/01/2022 09:16:29 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x07altceva\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x02'
+15/01/2022 09:16:29 PM----Hostname extras din DNS_Question: altceva.local
+15/01/2022 09:16:30 PM----Hostname extras din DNS_Answer: altceva.local
+15/01/2022 09:16:30 PM----Ip extras din DNS_Answer: 192.168.75.2
+15/01/2022 09:16:30 PM----Hostname extras din DNS_Question: altceva.local
+15/01/2022 09:18:21 PM----UDP server(used for sending messages) up
+15/01/2022 09:18:21 PM----Server waiting for devices
+15/01/2022 09:18:21 PM----Se porneste thread ul pentru receive
+15/01/2022 09:18:24 PM----Se va inregistra un nou device cu numele ceva.local
+15/01/2022 09:18:24 PM----S-a creat un socket_receive pentru device
+15/01/2022 09:18:24 PM----Se porneste thread ul pentru receive din device
+15/01/2022 09:18:24 PM----S-a setat adresa ip: 192.168.75.1
+15/01/2022 09:18:24 PM----Dispozitivele inregistrate si adresele lor: {'ceva.local': '192.168.75.1'}
+15/01/2022 09:18:24 PM----Device nou inregistrat: 192.168.75.1,20001
+15/01/2022 09:18:25 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x04ceva\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x01'
+15/01/2022 09:18:25 PM----Server register_device Error: [WinError 10049] The requested address is not valid in its context
+15/01/2022 09:18:26 PM----Hostname extras din DNS_Answer: ceva.local
+15/01/2022 09:18:26 PM----Ip extras din DNS_Answer: 192.168.75.1
+15/01/2022 09:18:26 PM----Hostname extras din DNS_Question: ceva.local
+15/01/2022 09:18:28 PM----Se va inregistra un nou device cu numele altceva.local
+15/01/2022 09:18:28 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x07altceva\x05local\x00\x00\x01\x00\x01'
+15/01/2022 09:18:28 PM----S-a creat un socket_receive pentru device
+15/01/2022 09:18:28 PM----Se porneste thread ul pentru receive din device
+15/01/2022 09:18:28 PM----S-a setat adresa ip: 192.168.75.2
+15/01/2022 09:18:28 PM----Dispozitivele inregistrate si adresele lor: {'ceva.local': '192.168.75.1', 'altceva.local': '192.168.75.2'}
+15/01/2022 09:18:28 PM----Device nou inregistrat: 192.168.75.2,20002
+15/01/2022 09:18:29 PM----Hostname extras din DNS_Answer: altceva.local
+15/01/2022 09:18:29 PM----Device-ul 192.168.75.2 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x07altceva\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x02'
+15/01/2022 09:18:29 PM----Ip extras din DNS_Answer: 0.1.0.1
+15/01/2022 09:18:29 PM----Server register_device Error: [WinError 10049] The requested address is not valid in its context
+15/01/2022 09:18:29 PM----Hostname extras din DNS_Question: altceva.local
+15/01/2022 09:18:30 PM----Hostname extras din DNS_Answer: altceva.local
+15/01/2022 09:18:30 PM----Ip extras din DNS_Answer: 192.168.75.2
+15/01/2022 09:18:30 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x07altceva\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x02'
+15/01/2022 09:18:30 PM----Hostname extras din DNS_Question: altceva.local
+15/01/2022 09:18:31 PM----Hostname extras din DNS_Answer: altceva.local
+15/01/2022 09:18:31 PM----Ip extras din DNS_Answer: 192.168.75.2
+15/01/2022 09:18:31 PM----Hostname extras din DNS_Question: altceva.local
+15/01/2022 09:18:58 PM----Se va inregistra un nou device cu numele device1.local
+15/01/2022 09:18:58 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x07device1\x05local\x00\x00\x01\x00\x01'
+15/01/2022 09:18:58 PM----Device-ul 192.168.75.2 a primit de la server b'\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x07device1\x05local\x00\x00\x01\x00\x01'
+15/01/2022 09:18:58 PM----S-a creat un socket_receive pentru device
+15/01/2022 09:18:58 PM----Se porneste thread ul pentru receive din device
+15/01/2022 09:18:58 PM----S-a setat adresa ip: 192.168.75.3
+15/01/2022 09:18:58 PM----Dispozitivele inregistrate si adresele lor: {'ceva.local': '192.168.75.1', 'altceva.local': '192.168.75.2', 'device1.local': '192.168.75.3'}
+15/01/2022 09:18:58 PM----Device nou inregistrat: 192.168.75.3,20003
+15/01/2022 09:18:59 PM----Hostname extras din DNS_Answer: device1.local
+15/01/2022 09:18:59 PM----Hostname extras din DNS_Answer: device1.local
+15/01/2022 09:18:59 PM----Ip extras din DNS_Answer: 0.1.0.1
+15/01/2022 09:18:59 PM----Device-ul 192.168.75.3 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x07device1\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x03'
+15/01/2022 09:18:59 PM----Server register_device Error: [WinError 10049] The requested address is not valid in its context
+15/01/2022 09:18:59 PM----Ip extras din DNS_Answer: 0.1.0.1
+15/01/2022 09:18:59 PM----Hostname extras din DNS_Question: device1.local
+15/01/2022 09:18:59 PM----Hostname extras din DNS_Question: device1.local
+15/01/2022 09:19:00 PM----Hostname extras din DNS_Answer: device1.local
+15/01/2022 09:19:00 PM----Ip extras din DNS_Answer: 192.168.75.3
+15/01/2022 09:19:00 PM----Device-ul 192.168.75.1 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x07device1\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x03'
+15/01/2022 09:19:00 PM----Hostname extras din DNS_Question: device1.local
+15/01/2022 09:19:00 PM----Device-ul 192.168.75.2 a primit de la server b'\x00\x00\x84\x00\x00\x00\x00\x01\x00\x00\x00\x00\x07device1\x05local\x00\x00\x01\x00\x01\x00\x00\x00\xff\x00\x04\xc0\xa8K\x03'
+15/01/2022 09:19:01 PM----Hostname extras din DNS_Answer: device1.local
+15/01/2022 09:19:01 PM----Hostname extras din DNS_Answer: device1.local
+15/01/2022 09:19:01 PM----Ip extras din DNS_Answer: 192.168.75.3
+15/01/2022 09:19:01 PM----Ip extras din DNS_Answer: 192.168.75.3
+15/01/2022 09:19:01 PM----Hostname extras din DNS_Question: device1.local
+15/01/2022 09:19:01 PM----Hostname extras din DNS_Question: device1.local

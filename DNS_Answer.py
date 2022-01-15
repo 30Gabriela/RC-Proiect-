@@ -1,5 +1,8 @@
 import socket
 import struct
+import logging
+logging.basicConfig(filename='LOGS.log', encoding='utf-8',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
+
 import time
 
 import Header_DNS_packet
@@ -118,13 +121,19 @@ def dns_answer_unpack(message):
             HostName.append('.')
             HostName.append(etichete[i])
         HostName=''.join(HostName)
-        print("\nHostname extras din DNS_Answer: ", HostName)
+
+        logging.info('Hostname extras din DNS_Answer: {}'.format(HostName))
+
+        #print("\nHostname extras din DNS_Answer: ", HostName)
         address=''
         for i in range(0,4):
             address+=str(bytes[-4+i])
             address+='.'
         address=address[:-1]
-        print("Adresa ip extrasa din DNS_Answer: ", address)
+
+        logging.info('Ip extras din DNS_Answer: {}'.format(address))
+
+        #print("Adresa ip extrasa din DNS_Answer: ", address)
 
         question = bytes[5]
         answer = bytes[7]

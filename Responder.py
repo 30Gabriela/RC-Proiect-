@@ -1,3 +1,5 @@
+import logging
+logging.basicConfig(filename='LOGS.log', encoding='utf-8',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
 from SRV_record import SRV_record
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Resolver import Ui_MainWindow
@@ -281,7 +283,9 @@ class Ui_Responder(object):
             try:
                 UDP.registerDevice(self.UDP_local,name)
             except BaseException as err:
-                print("Eroare la inregistrarea unui device..."+err)
+                logging.info('Eroare la inregistrarea unui device : {}'.format(err))
+
+                #print("Eroare la inregistrarea unui device..."+err)
                 raise
         else:
             error_dialog = QtWidgets.QErrorMessage()

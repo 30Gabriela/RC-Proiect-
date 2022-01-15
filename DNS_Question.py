@@ -2,7 +2,8 @@ import binascii
 import struct
 
 import Header_DNS_packet
-
+import logging
+logging.basicConfig(filename='LOGS.log', encoding='utf-8',format='%(asctime)s----%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.DEBUG)
 
 class DNS_Question(Header_DNS_packet.DNS_Header):
     PACKET_TYPE_REQUEST  = 0
@@ -82,7 +83,8 @@ def dns_question_unpack(message):
             HostName.append('.')
             HostName.append(etichete[i])
         HostName=''.join(HostName)
-        print("\nHostname extras din DNS_Question: ", HostName)
+        logging.info('Hostname extras din DNS_Question: {}'.format(HostName))
+        #print("\nHostname extras din DNS_Question: ", HostName)
 
         question=bytes[5]
         answer=bytes[6]

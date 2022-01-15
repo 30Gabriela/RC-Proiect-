@@ -1,3 +1,4 @@
+
 class DNS_Header(object):
     OPC_REQUEST = 0
     OPC_RESPONSE = 1
