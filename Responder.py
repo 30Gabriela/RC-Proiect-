@@ -280,6 +280,7 @@ class Ui_Responder(object):
         entries=self.uiSRV.getLista()
         for entry in entries:
             self.uiShowSRV.WriteSRVEntries.insertPlainText(entry.print()+"\n")
+            UDP_server.query_srv("_" + entry.name_service + "._udp.local")
             dates = entry.get_dates()
             UDP_server.send_SRV_answer(dates)
 
